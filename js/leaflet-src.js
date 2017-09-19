@@ -1850,8 +1850,6 @@ var mobileWebkit3d = mobile && webkit3d;
 // `true` for browsers implementing the Microsoft touch events model (notably IE10).
 var msPointer = !window.PointerEvent && window.MSPointerEvent;
 
-// @property pointer: Boolean
-// `true` for all browsers supporting [pointer events](https://msdn.microsoft.com/en-us/library/dn433244%28v=vs.85%29.aspx).
 var pointer = !!(window.PointerEvent || msPointer);
 
 // @property touch: Boolean
@@ -8731,22 +8729,6 @@ function geoJSON(geojson, options) {
 // Backward compatibility.
 var geoJson = geoJSON;
 
-/*
- * @class ImageOverlay
- * @aka L.ImageOverlay
- * @inherits Interactive layer
- *
- * Used to load and display a single image over specific bounds of the map. Extends `Layer`.
- *
- * @example
- *
- * ```js
- * var imageUrl = 'http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
- * 	imageBounds = [[40.712216, -74.22655], [40.773941, -74.12544]];
- * L.imageOverlay(imageUrl, imageBounds).addTo(map);
- * ```
- */
-
 var ImageOverlay = Layer.extend({
 
 	// @section
@@ -11159,36 +11141,6 @@ var GridLayer = Layer.extend({
 function gridLayer(options) {
 	return new GridLayer(options);
 }
-
-/*
- * @class TileLayer
- * @inherits GridLayer
- * @aka L.TileLayer
- * Used to load and display tile layers on the map. Extends `GridLayer`.
- *
- * @example
- *
- * ```js
- * L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar'}).addTo(map);
- * ```
- *
- * @section URL template
- * @example
- *
- * A string of the following form:
- *
- * ```
- * 'http://{s}.somedomain.com/blabla/{z}/{x}/{y}{r}.png'
- * ```
- *
- * `{s}` means one of the available subdomains (used sequentially to help with browser parallel requests per domain limitation; subdomain values are specified in options; `a`, `b` or `c` by default, can be omitted), `{z}` — zoom level, `{x}` and `{y}` — tile coordinates. `{r}` can be used to add "&commat;2x" to the URL to load retina tiles.
- *
- * You can use custom keys in the template, which will be [evaluated](#util-template) from TileLayer options, like this:
- *
- * ```
- * L.tileLayer('http://{s}.somedomain.com/{foo}/{z}/{x}/{y}.png', {foo: 'bar'});
- * ```
- */
 
 
 var TileLayer = GridLayer.extend({
