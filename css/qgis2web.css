@@ -23,7 +23,6 @@ th {
 }
 .leaflet-popup-content {
     width:auto !important;
-    white-space:nowrap;
 }
 .leaflet-tooltip {
     background: none;
