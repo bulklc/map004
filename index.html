@@ -6,10 +6,9 @@
         <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
         <link rel="stylesheet" href="css/qgis2web.css">
         <link rel="stylesheet" href="css/leaflet-search.css">
-        <link rel="stylesheet" href="css/Control.OSMGeocoder.css">
         <style>
         html, body, #map {
             width: 100%;
@@ -31,11 +30,10 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
-        <script src="js/Control.OSMGeocoder.js"></script>
         <script src="js/leaflet-search.js"></script>
-        <script src="data/WardApplicabilityoutof50.js"></script>
+        <script src="data/Wards0.js"></script>
         <script src="data/OuterRingRoad1.js"></script>
-        <script src="data/TargetComunities2.js"></script>
+        <script src="data/Communities2.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -59,8 +57,8 @@
         map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
         L.control.locate().addTo(map);
         var bounds_group = new L.featureGroup([]);
-        var basemap0 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors,<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+        var basemap0 = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
             maxZoom: 28
         });
         basemap0.addTo(map);
@@ -69,7 +67,7 @@
                 map.fitBounds(bounds_group.getBounds());
             }
         }
-        function pop_WardApplicabilityoutof50(feature, layer) {
+        function pop_Wards0(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (i in e.target._eventParents) {
@@ -80,107 +78,102 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">Ward Name:</th>\
-                        <td>' + (feature.properties['Ward Name:'] !== null ? Autolinker.link(String(feature.properties['Ward Name:'])) : '') + '</td>\
+                        <td colspan="2"><strong>Ward Name</strong><br />' + (feature.properties['Ward Name'] !== null ? Autolinker.link(String(feature.properties['Ward Name'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Ward Number:</th>\
-                        <td>' + (feature.properties['Ward Number:'] !== null ? Autolinker.link(String(feature.properties['Ward Number:'])) : '') + '</td>\
+                        <td colspan="2"><strong>Ward Number</strong><br />' + (feature.properties['Ward Number'] !== null ? Autolinker.link(String(feature.properties['Ward Number'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Treatment Need:</th>\
-                        <td>' + (feature.properties['Treatment Need:'] !== null ? Autolinker.link(String(feature.properties['Treatment Need:'])) : '') + '</td>\
+                        <td colspan="2"><strong>Treatment Need</strong><br />' + (feature.properties['Treatment Need'] !== null ? Autolinker.link(String(feature.properties['Treatment Need'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Low Income:</th>\
-                        <td>' + (feature.properties['Low Income:'] !== null ? Autolinker.link(String(feature.properties['Low Income:'])) : '') + '</td>\
+                        <td colspan="2"><strong>Low Income</strong><br />' + (feature.properties['Low Income'] !== null ? Autolinker.link(String(feature.properties['Low Income'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Ward Applicability (out of 5):</th>\
-                        <td>' + (feature.properties['Ward Applicability (out of 5):'] !== null ? Autolinker.link(String(feature.properties['Ward Applicability (out of 5):'])) : '') + '</td>\
+                        <td colspan="2"><strong>Focus Factor (out of 5)</strong><br />' + (feature.properties['Focus Factor (out of 5)'] !== null ? Autolinker.link(String(feature.properties['Focus Factor (out of 5)'])) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent);
         }
 
-        function style_WardApplicabilityoutof50_0(feature) {
-            if (feature.properties['Ward Applicability (out of 5):'] >= 0.000000 && feature.properties['Ward Applicability (out of 5):'] <= 1.000000 ) {
+        function style_Wards0_0(feature) {
+            if (feature.properties['Focus Factor (out of 5)'] >= 0.000000 && feature.properties['Focus Factor (out of 5)'] <= 1.000000 ) {
                 return {
-                pane: 'pane_WardApplicabilityoutof50',
+                pane: 'pane_Wards0',
                 opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
+                color: 'rgba(0,0,0,0.7)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fillOpacity: 1,
-                fillColor: 'rgba(255,255,255,0.5)',
+                fillColor: 'rgba(255,255,255,0.7)',
             }
             }
-            if (feature.properties['Ward Applicability (out of 5):'] >= 1.000000 && feature.properties['Ward Applicability (out of 5):'] <= 2.000000 ) {
+            if (feature.properties['Focus Factor (out of 5)'] >= 1.000000 && feature.properties['Focus Factor (out of 5)'] <= 2.000000 ) {
                 return {
-                pane: 'pane_WardApplicabilityoutof50',
+                pane: 'pane_Wards0',
                 opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
+                color: 'rgba(0,0,0,0.7)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fillOpacity: 1,
-                fillColor: 'rgba(193,223,230,0.5)',
+                fillColor: 'rgba(193,223,230,0.7)',
             }
             }
-            if (feature.properties['Ward Applicability (out of 5):'] >= 2.000000 && feature.properties['Ward Applicability (out of 5):'] <= 3.000000 ) {
+            if (feature.properties['Focus Factor (out of 5)'] >= 2.000000 && feature.properties['Focus Factor (out of 5)'] <= 3.000000 ) {
                 return {
-                pane: 'pane_WardApplicabilityoutof50',
+                pane: 'pane_Wards0',
                 opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
+                color: 'rgba(0,0,0,0.7)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fillOpacity: 1,
-                fillColor: 'rgba(132,192,205,0.5)',
+                fillColor: 'rgba(132,192,205,0.7)',
             }
             }
-            if (feature.properties['Ward Applicability (out of 5):'] >= 3.000000 && feature.properties['Ward Applicability (out of 5):'] <= 4.000000 ) {
+            if (feature.properties['Focus Factor (out of 5)'] >= 3.000000 && feature.properties['Focus Factor (out of 5)'] <= 4.000000 ) {
                 return {
-                pane: 'pane_WardApplicabilityoutof50',
+                pane: 'pane_Wards0',
                 opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
+                color: 'rgba(0,0,0,0.7)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fillOpacity: 1,
-                fillColor: 'rgba(70,161,180,0.5)',
+                fillColor: 'rgba(70,161,180,0.7)',
             }
             }
-            if (feature.properties['Ward Applicability (out of 5):'] >= 4.000000 && feature.properties['Ward Applicability (out of 5):'] <= 5.000000 ) {
+            if (feature.properties['Focus Factor (out of 5)'] >= 4.000000 && feature.properties['Focus Factor (out of 5)'] <= 5.000000 ) {
                 return {
-                pane: 'pane_WardApplicabilityoutof50',
+                pane: 'pane_Wards0',
                 opacity: 1,
-                color: 'rgba(0,0,0,0.5)',
+                color: 'rgba(0,0,0,0.7)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fillOpacity: 1,
-                fillColor: 'rgba(9,130,155,0.5)',
+                fillColor: 'rgba(9,130,155,0.7)',
             }
             }
         }
-        map.createPane('pane_WardApplicabilityoutof50');
-        map.getPane('pane_WardApplicabilityoutof50').style.zIndex = 400;
-        map.getPane('pane_WardApplicabilityoutof50').style['mix-blend-mode'] = 'normal';
-    var layer_WardApplicabilityoutof50 = new L.geoJson(json_WardApplicabilityoutof50, {
+        map.createPane('pane_Wards0');
+        map.getPane('pane_Wards0').style.zIndex = 400;
+        map.getPane('pane_Wards0').style['mix-blend-mode'] = 'normal';
+    var layer_Wards0 = new L.geoJson(json_Wards0, {
         attribution: '<a href=""></a>',
-        pane: 'pane_WardApplicabilityoutof50',
-        onEachFeature: pop_WardApplicabilityoutof50,
-        style: style_WardApplicabilityoutof50_0,
+        pane: 'pane_Wards0',
+        onEachFeature: pop_Wards0,
+        style: style_Wards0_0,
     });
-        bounds_group.addLayer(layer_WardApplicabilityoutof50);
-        map.addLayer(layer_WardApplicabilityoutof50);
+        bounds_group.addLayer(layer_Wards0);
+        map.addLayer(layer_Wards0);
         function pop_OuterRingRoad1(feature, layer) {
             layer.on({
                 mouseout: function(e) {
@@ -221,7 +214,7 @@
     });
         bounds_group.addLayer(layer_OuterRingRoad1);
         map.addLayer(layer_OuterRingRoad1);
-        function pop_TargetComunities2(feature, layer) {
+        function pop_Communities2(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (i in e.target._eventParents) {
@@ -232,30 +225,21 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">Name</th>\
-                        <td>' + (feature.properties['Name'] !== null ? Autolinker.link(String(feature.properties['Name'])) : '') + '</td>\
+                        <td colspan="2"><strong>Number</strong><br />' + (feature.properties['Number'] !== null ? Autolinker.link(String(feature.properties['Number'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Number</th>\
-                        <td>' + (feature.properties['Number'] !== null ? Autolinker.link(String(feature.properties['Number'])) : '') + '</td>\
+                        <td colspan="2"><strong>Type</strong><br />' + (feature.properties['Type'] !== null ? Autolinker.link(String(feature.properties['Type'])) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Group</th>\
-                        <td>' + (feature.properties['Group'] !== null ? Autolinker.link(String(feature.properties['Group'])) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Link</th>\
-                        <td>' + (feature.properties['Link'] !== null ? Autolinker.link(String(feature.properties['Link'])) : '') + '</td>\
+                        <td colspan="2"><strong>Location</strong><br />' + (feature.properties['Location'] !== null ? Autolinker.link(String(feature.properties['Location'])) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent);
         }
 
-        function style_TargetComunities2_0(feature) {
-            switch(feature.properties['Group'].toString()) {
-                case 'Pure Paani':
-                    return {
-                pane: 'pane_TargetComunities2',
+        function style_Communities2_0() {
+            return {
+                pane: 'pane_Communities2',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
@@ -266,54 +250,32 @@
                 fillOpacity: 1,
                 fillColor: 'rgba(155,16,9,1.0)',
             }
-                    break;
-                case 'Sow Phillips':
-                    return {
-                pane: 'pane_TargetComunities2',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fillOpacity: 1,
-                fillColor: 'rgba(94,9,155,1.0)',
-            }
-                    break;
-            }
         }
-        map.createPane('pane_TargetComunities2');
-        map.getPane('pane_TargetComunities2').style.zIndex = 402;
-        map.getPane('pane_TargetComunities2').style['mix-blend-mode'] = 'normal';
-        var layer_TargetComunities2 = new L.geoJson(json_TargetComunities2, {
+        map.createPane('pane_Communities2');
+        map.getPane('pane_Communities2').style.zIndex = 402;
+        map.getPane('pane_Communities2').style['mix-blend-mode'] = 'normal';
+        var layer_Communities2 = new L.geoJson(json_Communities2, {
             attribution: '<a href=""></a>',
-            pane: 'pane_TargetComunities2',
-            onEachFeature: pop_TargetComunities2,
+            pane: 'pane_Communities2',
+            onEachFeature: pop_Communities2,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_TargetComunities2_0(feature));
+                return L.circleMarker(latlng, style_Communities2_0(feature));
             },
         });
-        bounds_group.addLayer(layer_TargetComunities2);
-        map.addLayer(layer_TargetComunities2);
-        var osmGeocoder = new L.Control.OSMGeocoder({
-            collapsed: false,
-            position: 'topright',
-            text: 'Search',
-        });
-        osmGeocoder.addTo(map);
+        bounds_group.addLayer(layer_Communities2);
+        map.addLayer(layer_Communities2);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'Target Comunities<br /><table><tr><td style="text-align: center;"><img src="legend/TargetComunities2_PurePaani0.png" /></td><td>Pure Paani</td></tr><tr><td style="text-align: center;"><img src="legend/TargetComunities2_SowPhillips1.png" /></td><td>Sow Phillips</td></tr></table>': layer_TargetComunities2,'<img src="legend/OuterRingRoad1.png" /> Outer Ring Road': layer_OuterRingRoad1,'Ward Applicability (out of 5)<br /><table><tr><td style="text-align: center;"><img src="legend/WardApplicabilityoutof50_110.png" /></td><td> 1 - 1</td></tr><tr><td style="text-align: center;"><img src="legend/WardApplicabilityoutof50_121.png" /></td><td> 1 - 2</td></tr><tr><td style="text-align: center;"><img src="legend/WardApplicabilityoutof50_232.png" /></td><td> 2 - 3</td></tr><tr><td style="text-align: center;"><img src="legend/WardApplicabilityoutof50_343.png" /></td><td> 3 - 4</td></tr><tr><td style="text-align: center;"><img src="legend/WardApplicabilityoutof50_454.png" /></td><td> 4 - 5</td></tr></table>': layer_WardApplicabilityoutof50,}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/Communities2.png" /> Communities': layer_Communities2,'<img src="legend/OuterRingRoad1.png" /> Outer Ring Road': layer_OuterRingRoad1,'Wards<br /><table><tr><td style="text-align: center;"><img src="legend/Wards0_010.png" /></td><td> 0 - 1</td></tr><tr><td style="text-align: center;"><img src="legend/Wards0_121.png" /></td><td> 1 - 2</td></tr><tr><td style="text-align: center;"><img src="legend/Wards0_232.png" /></td><td> 2 - 3</td></tr><tr><td style="text-align: center;"><img src="legend/Wards0_343.png" /></td><td> 3 - 4</td></tr><tr><td style="text-align: center;"><img src="legend/Wards0_454.png" /></td><td> 4 - 5</td></tr></table>': layer_Wards0,}).addTo(map);
         setBounds();
         map.addControl(new L.Control.Search({
-            layer: layer_TargetComunities2,
+            layer: layer_Communities2,
             initial: false,
             hideMarkerOnCollapse: true,
-            propertyName: 'Name'}));
+            propertyName: 'Number'}));
         </script>
     </body>
 </html>
